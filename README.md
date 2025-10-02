@@ -52,7 +52,5 @@ This algorithm is famously used for SSH key fingerprint visualization.
 
 ## 📢 Acknowledgement
 
-Thanks to my friend [@syswraith](https://syswraith.com/) for introducing me to the concept of the Drunken Bishop algorithm.
+Thanks to my friend [@syswraith])(https://syswraith.com/) for introducing me to the concept of the Drunken Bishop algorithm.
 ---
-git clone https://github.com/yourusername/drunken-bishop.git
-cd drunken-bishop
