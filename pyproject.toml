@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "drunken-bishop"
+version = "0.1.0"
+description = "Drunken Bishop fingerprint visualization tool"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  { name="Dhruv Marulkar" }
+]
+
+dependencies = [
+  "pillow"
+]
+
+[project.scripts]
+drunken-bishop = "drunken_bishop.core:main"
