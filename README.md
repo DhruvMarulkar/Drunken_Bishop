@@ -1,56 +1,121 @@
-# Drunken Bishop Visualization
+# 🧭 Drunken Bishop Fingerprint Visualizer
 
-A Python implementation of the **Drunken Bishop algorithm** — a random-walk visual fingerprint generator.  
-Given an input word or string, this program produces a unique ASCII art pattern representing that word’s “fingerprint.”
+A Python CLI tool inspired by OpenSSH’s **Drunken Bishop algorithm** that converts text into
+**cryptographic fingerprints** using a deterministic random-walk visualization.
 
-This algorithm is famously used for SSH key fingerprint visualization.
-
----
-
-## 🔍 How It Works
-
-1. **Convert Input to Binary**  
-   The input word is encoded into UTF-8 bytes and converted to a long string of binary bits.
-
-2. **Map Bits to Moves**  
-   Every 2 bits determine one move of the “bishop” on a grid:
-   - `00` → up-left
-   - `01` → up-right
-   - `10` → down-left
-   - `11` → down-right
-
-3. **Add Randomness**  
-   Small random variations are added to each move to simulate a “drunken” walk.
-
-4. **Track Visits**  
-   Each cell in the grid records how many times it was visited.
-
-5. **Generate ASCII Art**  
-   Each visit count is mapped to a symbol. The result is a unique ASCII art fingerprint.
+The project supports **ASCII fingerprints**, **PNG image output**, and a **compare mode**
+to demonstrate the **avalanche effect** in cryptographic hashing.
 
 ---
 
-## 🎨 Symbol Mapping
+## ✨ Features
 
-| Visits | Symbol |
-|--------|--------|
-| 0      | ` `     |
-| 1      | `.`     |
-| 2      | `o`     |
-| 3      | `+`     |
-| 4      | `=`     |
-| 5      | `*`     |
-| 6      | `B`     |
-| 7      | `0`     |
-| 8      | `X`     |
-| 9      | `@`     |
-| 10     | `%`     |
-| 11     | `&`     |
-| 12     | `#`     |
-| 13     | `/`     |
-| ≥14    | `^`     |
+- Deterministic fingerprint generation using **SHA-256**
+- ASCII art visualization in the terminal
+- PNG image (heatmap-style) output
+- Compare mode to visualize small input changes
+- Clean CLI interface
+- Modular Python package with tests
+- Installable as a CLI tool
 
-## 📢 Acknowledgement
-
-Thanks to my friend [@syswraith])(https://syswraith.com/) for introducing me to the concept of the Drunken Bishop algorithm.
 ---
+
+## 🧠 How It Works
+
+1. **Hashing**  
+   The input text is hashed using **SHA-256**, ensuring deterministic behavior.
+
+2. **Bit Pair Encoding**  
+   The hash is converted into a binary stream.  
+   Every 2 bits define a diagonal move:
+   - `00` → up-left  
+   - `01` → up-right  
+   - `10` → down-left  
+   - `11` → down-right  
+
+3. **Drunken Walk**  
+   Starting from the grid center, the “bishop” walks according to these moves while
+   recording visit counts per cell.
+
+4. **Rendering**  
+   - ASCII symbols represent visit intensity
+   - PNG images visualize the same grid as a heatmap
+   - Start (`S`) and End (`E`) positions are highlighted
+
+---
+
+## 🚀 Installation
+
+Clone the repository:
+
+```bash
+git clone <your-repo-url>
+cd Drunken_Bishop
+Install dependencies:
+
+bash
+Copy code
+pip install pillow
+(Optional) Install as a CLI tool:
+
+bash
+Copy code
+pip install -e .
+▶️ Usage
+Run from the project root or after installation.
+
+Single input (ASCII output)
+bash
+Copy code
+drunken-bishop hello
+Save ASCII output to file
+bash
+Copy code
+drunken-bishop hello --output examples/hello.txt
+Generate PNG image
+bash
+Copy code
+drunken-bishop hello --image examples/hello.png
+Compare two inputs (avalanche effect)
+bash
+Copy code
+drunken-bishop hello "hello!"
+Compare + PNG output
+bash
+Copy code
+drunken-bishop hello "hello!" --image examples/compare.png
+🖼️ Example Outputs
+Example ASCII and PNG fingerprints are available in the examples/ directory.
+Small changes in input result in visually different patterns.
+
+🧪 Tests
+Run tests from the project root:
+
+bash
+Copy code
+pytest
+Tests verify:
+
+Deterministic behavior
+
+Avalanche effect
+
+Non-empty fingerprint generation
+
+📂 Project Structure
+markdown
+Copy code
+Drunken_Bishop/
+├── drunken_bishop/
+│   ├── __init__.py
+│   ├── core.py
+│   └── __main__.py
+├── tests/
+├── examples/
+├── docs/
+├── pyproject.toml
+├── README.md
+└── .gitignore
+
+📢 Acknowledgement
+Thanks to my friend @syswraith for introducing me to the concept of the Drunken Bishop algorithm.
